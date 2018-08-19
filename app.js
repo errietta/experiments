@@ -45,7 +45,13 @@ const setUpApp = (config) => {
 
 const startServer = async () => {
   try {
-    const config = await getConfig();
+    const env = process.env.NODE_ENV || 'development';
+
+    if (env !== 'production') {
+      console.log('*** Running in development mode ***');
+    }
+
+    const config = await getConfig(env);
     await setUpApp(config);
     console.log('ready');
   } catch (e) {
