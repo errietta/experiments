@@ -28,6 +28,8 @@ const setUpApp = (config) => {
   app.use(session({
     secret: config.sessionSecret,
     store: app.get('env') !== 'production' ? new session.MemoryStore() : new SQLiteStore({ db: './db.db' }),
+    resave: false,
+    saveUninitialized: false,
   }));
 
   app.use(state.passport.initialize());
