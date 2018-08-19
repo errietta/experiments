@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.296.0",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "connect-sqlite3": "^0.9.11",
