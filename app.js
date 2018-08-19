@@ -18,11 +18,17 @@ const setUpApp = (config) => {
   state.passport = strategies(state);
 
   const app = express();
+
+  const SQLiteStore = require('connect-sqlite3')(session);
+
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
   app.use(cookieParser());
-  app.use(session({ secret: config.sessionSecret }));
+  app.use(session({
+    secret: config.sessionSecret,
+    store: app.get('env') !== 'production' ? new session.MemoryStore() : new SQLiteStore({ db: './db.db' }),
+  }));
 
   app.use(state.passport.initialize());
   app.use(state.passport.session());
